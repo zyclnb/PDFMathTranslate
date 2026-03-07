@@ -50,6 +50,12 @@ docker run -d -p 7860:7860 byaidu/pdf2zh
 # 浏览器访问 http://localhost:7860/
 ```
 
+### 4) Windows 11 一体化安装包（Setup.exe）
+
+- 本仓库提供 CI 自动构建的 `PDFMathTranslate-Setup-win11-x64.exe` 安装包（包含运行所需文件）。
+- 在 GitHub Actions 的 `fork-build` 工作流中下载 `win11-installer` artifact 即可。
+- 安装完成后可直接从开始菜单启动 Web UI（默认等效 `pdf2zh -i`）。
+
 ## 文档
 
 - 上游英文 README：<https://github.com/Byaidu/PDFMathTranslate/blob/main/README.md>

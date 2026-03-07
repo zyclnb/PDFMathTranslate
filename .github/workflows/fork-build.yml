@@ -34,14 +34,14 @@ jobs:
           - platform: linux/arm64
             runner: ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
-    needs: 
+    needs:
       - check-repository
       - test
     if: needs.check-repository.outputs.is_main_repo != 'true'
     permissions:
       contents: read
       packages: write
-      
+
     steps:
       - name: Convert to lowercase
         run: |
@@ -107,7 +107,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-      
+
     steps:
       - name: Convert to lowercase
         run: |
@@ -150,7 +150,7 @@ jobs:
       - name: Inspect image
         run: |
           docker buildx imagetools inspect ${{ env.GHCR_REPO_LOWER }}:${{ steps.meta.outputs.version }}
-  
+
   build-win64-exe:
     runs-on: windows-latest
     needs:
@@ -237,7 +237,7 @@ jobs:
           include-hidden-files: true
 
   test-win64-exe:
-    needs: 
+    needs:
       - build-win64-exe
       - check-repository
     if: needs.check-repository.outputs.is_main_repo != 'true'
@@ -255,7 +255,7 @@ jobs:
       - name: Test show version (online mode)
         run: |
           ./build/pdf2zh.exe --version
-      
+
       - name: Test - Translate a PDF file with plain text only (online mode)
         run: |
           ./build/pdf2zh.exe ./test/file/translate.cli.plain.text.pdf -o ./test/file
@@ -267,7 +267,7 @@ jobs:
       - name: Test - Translate without offline assets (online mode)
         run: |
           ./build/pdf2zh.exe ./test/file/translate.cli.plain.text.pdf -o ./test/file
-          
+
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
@@ -321,3 +321,51 @@ jobs:
           if-no-files-found: error
           compression-level: 1
           include-hidden-files: true
+
+  build-win11-installer:
+    name: Build Win11 installer (Setup.exe)
+    needs:
+      - check-repository
+      - test-win64-exe
+    if: needs.check-repository.outputs.is_main_repo != 'true'
+    runs-on: windows-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: Download build artifact (with assets)
+        uses: actions/download-artifact@v4
+        with:
+          name: win64-exe-with-assets
+          path: ./build
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress
+
+      - name: Compile installer
+        shell: pwsh
+        run: |
+          $appVersion = "0.0.${{ github.run_number }}"
+          $appVersionInfo = "0.0.${{ github.run_number }}.0"
+          $repoUrl = "https://github.com/${{ github.repository }}"
+          $sourceDir = (Resolve-Path "./build").Path
+          $outputDir = (Resolve-Path ".").Path
+
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          & $iscc `
+            "/DMyAppVersion=$appVersion" `
+            "/DMyAppVersionInfo=$appVersionInfo" `
+            "/DMyAppPublisher=${{ github.repository_owner }}" `
+            "/DMyAppURL=$repoUrl" `
+            "/DMySourceDir=$sourceDir" `
+            "/DMyOutputDir=$outputDir" `
+            "script/windows/pdf2zh_installer.iss"
+
+      - name: Upload Win11 installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: win11-installer
+          path: ./PDFMathTranslate-Setup-win11-x64.exe
+          if-no-files-found: error
