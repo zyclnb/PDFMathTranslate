@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="个人主页：展示个人简介、技能、项目、服务与联系方式。"
+    />
+    <title>我的个人主页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <nav class="container nav">
+        <a class="logo" href="#top">主页</a>
+        <button class="menu-toggle" aria-label="切换菜单" aria-expanded="false">☰</button>
+        <ul class="nav-links">
+          <li><a href="#about">关于我</a></li>
+          <li><a href="#skills">核心能力</a></li>
+          <li><a href="#projects">精选项目</a></li>
+          <li><a href="#services">服务内容</a></li>
+          <li><a href="#contact">联系我</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-content">
+          <p class="tag">个人品牌主页</p>
+          <h1>你好，我是你的名字</h1>
+          <p class="hero-subtitle">
+            我专注于产品设计、前端开发与 AI 工作流落地，帮助个人与团队把想法快速变成可上线、可增长的数字产品。
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects">查看作品</a>
+            <a class="btn btn-outline" href="#contact">预约沟通</a>
+          </div>
+          <ul class="hero-metrics">
+            <li><strong>30+</strong><span>完成项目</span></li>
+            <li><strong>8年</strong><span>行业经验</span></li>
+            <li><strong>95%</strong><span>客户复购率</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container two-col">
+          <div>
+            <h2>关于我</h2>
+            <p>
+              我擅长把复杂问题拆解成可执行方案，覆盖从需求梳理、体验设计、技术实现到上线迭代的完整链路。无论你是想搭建个人品牌站、企业官网，还是做一款轻量级 SaaS
+              产品，我都可以帮助你高质量推进。
+            </p>
+            <p>
+              我的工作方式强调透明、反馈和结果：每周同步进度、按里程碑交付、以数据驱动优化，让每一步都可衡量。
+            </p>
+          </div>
+          <aside class="card">
+            <h3>我能帮你实现</h3>
+            <ul>
+              <li>打造专业可信的线上第一印象</li>
+              <li>提升网站转化率与用户停留时长</li>
+              <li>建立可持续迭代的产品与内容系统</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section id="skills" class="section section-muted">
+        <div class="container">
+          <h2>核心能力</h2>
+          <div class="grid cards-3">
+            <article class="card">
+              <h3>品牌与视觉</h3>
+              <p>从品牌定位到页面视觉体系，统一风格、强化识别度，增强专业感与信任感。</p>
+            </article>
+            <article class="card">
+              <h3>前端开发</h3>
+              <p>注重性能、可访问性与可维护性，构建快速、稳定、易扩展的现代化网站。</p>
+            </article>
+            <article class="card">
+              <h3>AI 自动化</h3>
+              <p>结合 AI 与工作流自动化，减少重复工作，让内容生产和运营效率成倍提升。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="container">
+          <h2>精选项目</h2>
+          <div class="grid cards-3">
+            <article class="card project-card">
+              <span class="chip">企业官网</span>
+              <h3>高端咨询品牌站</h3>
+              <p>重构信息架构与视觉语言，移动端体验显著提升，留资转化率提升 42%。</p>
+            </article>
+            <article class="card project-card">
+              <span class="chip">SaaS</span>
+              <h3>数据看板平台</h3>
+              <p>完成从原型到 MVP 的全流程开发，4 周上线首版，助力团队快速验证商业模式。</p>
+            </article>
+            <article class="card project-card">
+              <span class="chip">个人 IP</span>
+              <h3>内容型个人主页</h3>
+              <p>建立「主页 + 订阅 + 社媒矩阵」增长闭环，月均自然咨询量增长 3 倍。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section section-muted">
+        <div class="container">
+          <h2>服务内容</h2>
+          <div class="grid cards-2">
+            <article class="card">
+              <h3>一站式建站服务</h3>
+              <p>适合希望快速上线、统一品牌形象的个人与团队。</p>
+              <ul>
+                <li>需求梳理与结构策划</li>
+                <li>页面设计与前端开发</li>
+                <li>SEO 基础优化与部署上线</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>增长优化与长期陪跑</h3>
+              <p>适合已有网站，想持续提升转化效果与内容效率的业务。</p>
+              <ul>
+                <li>漏斗分析与关键页面改版</li>
+                <li>内容策略与自动化流程搭建</li>
+                <li>数据复盘与迭代建议</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact">
+        <div class="container">
+          <h2>让我们开始合作</h2>
+          <p>欢迎通过以下方式联系我，我会在 24 小时内回复。</p>
+          <div class="contact-links">
+            <a class="btn btn-primary" href="mailto:you@example.com">you@example.com</a>
+            <a class="btn btn-outline" href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn btn-outline" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span id="year"></span> 你的名字 · All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
