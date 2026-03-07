@@ -350,15 +350,15 @@ jobs:
           $archivePath = "./pdf2zh-portable.7z"
           $configPath = "./sfx-config.txt"
           $sfxPath = "C:\Program Files\7-Zip\7z.sfx"
-          $outExe = "./PDFMathTranslate-Setup-win11-x64.exe"
+          $outExe = "./zyclnb-PDFTranslate-Setup-win11-x64.exe"
 
           & "C:\Program Files\7-Zip\7z.exe" a -t7z $archivePath "./build/*"
 
           $cfgLines = @(
             ';!@Install@!UTF-8!',
-            'Title="PDFMathTranslate Setup"',
-            'BeginPrompt="Install PDFMathTranslate to a folder?"',
-            'RunProgram="pdf2zh.exe -i"',
+            'Title="zyclnb PDF Translate Setup"',
+            'BeginPrompt="Install zyclnb PDF Translate to a folder?"',
+            'RunProgram="pdf2zh.exe -i --no-browser"',
             ';!@InstallEnd@!'
           )
           $cfgLines | Set-Content -Encoding UTF8 $configPath
@@ -376,5 +376,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: win11-installer
-          path: ./PDFMathTranslate-Setup-win11-x64.exe
+          path: ./zyclnb-PDFTranslate-Setup-win11-x64.exe
           if-no-files-found: error
