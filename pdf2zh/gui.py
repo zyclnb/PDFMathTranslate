@@ -518,7 +518,7 @@ demo_recaptcha = """
     """
 
 tech_details_string = f"""
-                    <summary>Build details</summary>
+                    <summary>Runtime details</summary>
                     - Home: <a href="{APP_REPO_URL}">{APP_NAME}</a><br>
                     - BabelDOC: <a href="https://github.com/funstory-ai/BabelDOC">funstory-ai/BabelDOC</a><br>
                     - Maintainer: {APP_GUI_CREDITS}<br>

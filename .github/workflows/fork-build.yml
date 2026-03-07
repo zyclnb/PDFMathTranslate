@@ -329,6 +329,7 @@ jobs:
       - build-win64-exe
     if: needs.check-repository.outputs.is_main_repo != 'true'
     runs-on: windows-latest
+    # Installer metadata centralized for easier maintenance
     env:
       APP_SETUP_NAME: PDFMathTranslate-Setup-win11-x64.exe
       APP_TITLE: PDFMathTranslate Setup
