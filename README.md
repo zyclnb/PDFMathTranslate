@@ -1,34 +1,24 @@
-# PDFMathTranslate（维护型 Fork）
+# zyclnb PDF Translate（维护增强版）
 
-> 本仓库是 [Byaidu/PDFMathTranslate](https://github.com/Byaidu/PDFMathTranslate) 的**维护型 fork**，目标是提供更稳定、可持续的日常维护与分发。
+> 这是 `zyclnb/PDFMathTranslate` 的主页面。目标是在不改变核心翻译能力的前提下，提供更稳定、更易分发、更易部署的使用体验。
 
-## 这个 Fork 的定位
+## 核心能力（保持与上游一致）
 
-- ✅ **优先稳定性**：以修复问题、维持可用、改进兼容性为主。
-- ✅ **紧跟上游**：定期同步上游关键变更与安全修复。
-- ✅ **谨慎引入新特性**：除非有明确维护价值，否则不做大规模架构改造。
-- ✅ **可追溯维护**：尽量保持小步提交，便于回滚与审查。
+- 学术 PDF 翻译并尽量保留原始排版结构；
+- 保留公式、图表、目录、注释等元素；
+- 支持 CLI / Web UI / Docker / Windows 发行方式；
+- 支持多语言和多种翻译服务。
 
-## 与上游仓库的关系
+## 这个仓库的增强点
 
-- 上游项目：<https://github.com/Byaidu/PDFMathTranslate>
-- 本 fork 会持续关注上游发布与关键提交，并按需回合并（merge/cherry-pick）。
-- 如果你的需求是“新功能探索”或“路线图讨论”，建议优先到上游仓库参与。
-- 如果你的需求是“现网可用性”“版本兼容”“依赖更新”“长期维护”，欢迎在本仓库提交 issue。
-
-## 项目能力（继承自上游）
-
-PDFMathTranslate 用于在尽量保持原排版的前提下翻译学术 PDF 文档：
-
-- 保留公式、图表、目录、注释等结构；
-- 支持多语言与多种翻译服务；
-- 提供命令行、Web UI 与 Docker 使用方式。
+- ✅ 面向个人维护和长期可用性优化；
+- ✅ 支持 GUI 白标配置（默认改为 fork 品牌）；
+- ✅ 支持 `--no-browser`（启动 Web UI 不自动弹浏览器）；
+- ✅ 提供 Win11 安装包流水线与一键运行脚本。
 
 ## 快速开始
 
-> 兼容上游主流使用方式，以下为常用入口。
-
-### 1) Python（推荐）
+### 1) Python 安装
 
 ```bash
 pip install pdf2zh
@@ -39,7 +29,13 @@ pdf2zh document.pdf
 
 ```bash
 pdf2zh -i
-# 默认访问 http://localhost:7860/
+# 默认 http://127.0.0.1:7860/
+```
+
+不自动弹浏览器：
+
+```bash
+pdf2zh -i --no-browser
 ```
 
 ### 3) Docker
@@ -47,44 +43,52 @@ pdf2zh -i
 ```bash
 docker pull byaidu/pdf2zh
 docker run -d -p 7860:7860 byaidu/pdf2zh
-# 浏览器访问 http://localhost:7860/
 ```
 
-### 4) Windows 11 一体化安装包（Setup.exe）
+### 4) Windows 一键运行（本仓库）
 
-- 本仓库提供 CI 自动构建的 `PDFMathTranslate-Setup-win11-x64.exe` 安装包（包含运行所需文件）。
-- 在 GitHub Actions 的 `fork-build` 工作流中下载 `win11-installer` artifact 即可。
-- 安装完成后可直接从开始菜单启动 Web UI（默认等效 `pdf2zh -i`）。
+```bat
+script\setup.bat
+pdf2zh_dist\start_pdf2zh.bat
+```
 
-## 文档
+该方式会安装当前仓库代码并默认使用白标参数。
 
-- 上游英文 README：<https://github.com/Byaidu/PDFMathTranslate/blob/main/README.md>
-- 中文文档（上游）：<https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/README_zh-CN.md>
-- GUI 文档（上游）：<https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/README_GUI.md>
+## GUI 白标参数
 
-> 说明：本仓库会优先维护可运行性与兼容性；若文档未及时同步，请以上游文档为基础并结合本仓库 release/提交记录使用。
+可通过环境变量覆盖界面品牌（不影响翻译功能）：
 
-## Issue / PR 指南（维护型策略）
+- `PDF2ZH_APP_NAME`
+- `PDF2ZH_APP_REPO_URL`
+- `PDF2ZH_APP_GUI_CREDITS`
 
-欢迎提交以下类型的问题与改动：
+示例：
 
-1. 回归 bug、兼容性问题、依赖冲突；
-2. 平台适配（Python 版本、系统环境、容器环境）；
-3. 安全修复与构建/发布稳定性改进；
-4. 不改变核心行为的小型可维护性优化。
+```bash
+export PDF2ZH_APP_NAME="zyclnb PDF Translate"
+export PDF2ZH_APP_REPO_URL="https://github.com/zyclnb/PDFMathTranslate"
+export PDF2ZH_APP_GUI_CREDITS="zyclnb"
+pdf2zh -i --no-browser
+```
 
-不优先处理：
+## Windows 安装包（CI）
 
-- 大范围重构；
-- 与上游方向明显分叉的大特性。
+- Workflow: `.github/workflows/fork-build.yml`
+- Artifact: `win11-installer`
+- 输出文件名：`zyclnb-PDFTranslate-Setup-win11-x64.exe`
 
-## 版本与发布策略
+## 文档入口
 
-- 采用“维护优先”的发布节奏（按修复与稳定性需求发布）；
-- 变更说明尽量清晰标注“来源于上游 / fork 自有修复”；
-- 遇到高风险变更时，优先提供可回退路径。
+- GUI 文档：[`docs/README_GUI.md`](./docs/README_GUI.md)
+- 高级选项：[`docs/ADVANCED.md`](./docs/ADVANCED.md)
+- API：[`docs/APIS.md`](./docs/APIS.md)
 
-## 致谢与许可
+## 与上游关系
 
-- 感谢上游项目及所有贡献者：<https://github.com/Byaidu/PDFMathTranslate>
-- 本仓库沿用上游许可证：见 [LICENSE](./LICENSE)。
+- 上游仓库：<https://github.com/Byaidu/PDFMathTranslate>
+- 本仓库会持续同步上游有价值更新，并保留必要兼容修复。
+
+## 许可与致谢
+
+- License: [AGPL-3.0](./LICENSE)
+- 致谢上游与所有贡献者：<https://github.com/Byaidu/PDFMathTranslate>

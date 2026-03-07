@@ -49,11 +49,11 @@ from babeldoc import __version__ as babeldoc_version
 
 logger = logging.getLogger(__name__)
 
-APP_NAME = str(ConfigManager.get("PDF2ZH_APP_NAME", "PDFMathTranslate"))
+APP_NAME = str(ConfigManager.get("PDF2ZH_APP_NAME", "zyclnb PDF Translate"))
 APP_REPO_URL = str(
-    ConfigManager.get("PDF2ZH_APP_REPO_URL", "https://github.com/Byaidu/PDFMathTranslate")
+    ConfigManager.get("PDF2ZH_APP_REPO_URL", "https://github.com/zyclnb/PDFMathTranslate")
 )
-APP_GUI_CREDITS = str(ConfigManager.get("PDF2ZH_APP_GUI_CREDITS", "Rongxin"))
+APP_GUI_CREDITS = str(ConfigManager.get("PDF2ZH_APP_GUI_CREDITS", "zyclnb"))
 
 BABELDOC_MODEL = OnnxModel.load_available()
 # The following variables associate strings with translators
@@ -518,10 +518,10 @@ demo_recaptcha = """
     """
 
 tech_details_string = f"""
-                    <summary>Technical details</summary>
+                    <summary>Build details</summary>
                     - Home: <a href="{APP_REPO_URL}">{APP_NAME}</a><br>
                     - BabelDOC: <a href="https://github.com/funstory-ai/BabelDOC">funstory-ai/BabelDOC</a><br>
-                    - GUI by: {APP_GUI_CREDITS}<br>
+                    - Maintainer: {APP_GUI_CREDITS}<br>
                     - pdf2zh Version: {__version__} <br>
                     - BabelDOC Version: {babeldoc_version}
                 """
@@ -598,7 +598,7 @@ with gr.Blocks(
                 interactive=True,
             )
 
-            with gr.Accordion("Open for More Experimental Options!", open=False):
+            with gr.Accordion("Advanced Options", open=False):
                 gr.Markdown("#### Experimental")
                 threads = gr.Textbox(
                     label="number of threads", interactive=True, value="4"
@@ -667,7 +667,7 @@ with gr.Blocks(
                 ConfigManager.set("PDF2ZH_VFONT", value)
                 return value
 
-            output_title = gr.Markdown("## Translated", visible=False)
+            output_title = gr.Markdown("## Translation Output", visible=False)
             output_file_mono = gr.File(
                 label="Download Translation (Mono)", visible=False
             )
@@ -678,8 +678,8 @@ with gr.Blocks(
                 label="reCAPTCHA Response", elem_id="verify", visible=False
             )
             recaptcha_box = gr.HTML('<div id="recaptcha-box"></div>')
-            translate_btn = gr.Button("Translate", variant="primary")
-            cancellation_btn = gr.Button("Cancel", variant="secondary")
+            translate_btn = gr.Button("Start Translation", variant="primary")
+            cancellation_btn = gr.Button("Stop", variant="secondary")
             tech_details_tog = gr.Markdown(
                 tech_details_string,
                 elem_classes=["secondary-text"],
@@ -713,7 +713,7 @@ with gr.Blocks(
             )
 
         with gr.Column(scale=2):
-            gr.Markdown("## Preview")
+            gr.Markdown("## PDF Preview")
             preview = PDF(label="Document Preview", visible=True, height=2000)
 
     # Event handlers

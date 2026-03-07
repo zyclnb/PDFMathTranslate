@@ -39,5 +39,5 @@ Set env vars before launch:
 Example:
 
 ```bash
-PDF2ZH_APP_NAME="My PDF Studio" pdf2zh -i --no-browser
+PDF2ZH_APP_NAME="zyclnb PDF Translate" PDF2ZH_APP_REPO_URL="https://github.com/zyclnb/PDFMathTranslate" PDF2ZH_APP_GUI_CREDITS="zyclnb" pdf2zh -i --no-browser
 ```

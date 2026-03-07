@@ -1,4 +1,4 @@
-#define MyAppName "PDFMathTranslate"
+#define MyAppName "zyclnb PDF Translate"
 #ifndef MyAppVersion
   #define MyAppVersion "0.0.0"
 #endif
@@ -6,10 +6,10 @@
   #define MyAppVersionInfo "0.0.0.0"
 #endif
 #ifndef MyAppPublisher
-  #define MyAppPublisher "PDFMathTranslate Fork Maintainers"
+  #define MyAppPublisher "zyclnb"
 #endif
 #ifndef MyAppURL
-  #define MyAppURL "https://github.com/Byaidu/PDFMathTranslate"
+  #define MyAppURL "https://github.com/zyclnb/PDFMathTranslate"
 #endif
 #ifndef MySourceDir
   #error MySourceDir is required (directory containing pdf2zh.exe and runtime files)
@@ -30,7 +30,7 @@ DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir={#MyOutputDir}
-OutputBaseFilename=PDFMathTranslate-Setup-win11-x64
+OutputBaseFilename=zyclnb-PDFTranslate-Setup-win11-x64
 Compression=lzma2
 SolidCompression=yes
 ArchitecturesAllowed=x64compatible
@@ -50,9 +50,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "{#MySourceDir}\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}\Launch Web UI"; Filename: "{app}\pdf2zh.exe"; Parameters: "-i"; WorkingDir: "{app}"
+Name: "{autoprograms}\{#MyAppName}\Launch Web UI"; Filename: "{app}\pdf2zh.exe"; Parameters: "-i --no-browser"; WorkingDir: "{app}"
 Name: "{autoprograms}\{#MyAppName}\Command Line"; Filename: "{app}\pdf2zh.exe"; WorkingDir: "{app}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\pdf2zh.exe"; Parameters: "-i"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\pdf2zh.exe"; Parameters: "-i --no-browser"; WorkingDir: "{app}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\pdf2zh.exe"; Parameters: "-i"; Description: "Launch Web UI now"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\pdf2zh.exe"; Parameters: "-i --no-browser"; Description: "Launch Web UI now"; Flags: nowait postinstall skipifsilent
