@@ -50,9 +50,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "{#MySourceDir}\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}\启动 Web UI"; Filename: "{app}\pdf2zh.exe"; Parameters: "-i"; WorkingDir: "{app}"
-Name: "{autoprograms}\{#MyAppName}\命令行工具"; Filename: "{app}\pdf2zh.exe"; WorkingDir: "{app}"
+Name: "{autoprograms}\{#MyAppName}\Launch Web UI"; Filename: "{app}\pdf2zh.exe"; Parameters: "-i"; WorkingDir: "{app}"
+Name: "{autoprograms}\{#MyAppName}\Command Line"; Filename: "{app}\pdf2zh.exe"; WorkingDir: "{app}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\pdf2zh.exe"; Parameters: "-i"; WorkingDir: "{app}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\pdf2zh.exe"; Parameters: "-i"; Description: "安装完成后立即启动 Web UI"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\pdf2zh.exe"; Parameters: "-i"; Description: "Launch Web UI now"; Flags: nowait postinstall skipifsilent
