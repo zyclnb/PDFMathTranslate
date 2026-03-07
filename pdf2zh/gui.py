@@ -49,6 +49,12 @@ from babeldoc import __version__ as babeldoc_version
 
 logger = logging.getLogger(__name__)
 
+APP_NAME = str(ConfigManager.get("PDF2ZH_APP_NAME", "PDFMathTranslate"))
+APP_REPO_URL = str(
+    ConfigManager.get("PDF2ZH_APP_REPO_URL", "https://github.com/Byaidu/PDFMathTranslate")
+)
+APP_GUI_CREDITS = str(ConfigManager.get("PDF2ZH_APP_GUI_CREDITS", "Rongxin"))
+
 BABELDOC_MODEL = OnnxModel.load_available()
 # The following variables associate strings with translators
 service_map: dict[str, BaseTranslator] = {
@@ -513,9 +519,9 @@ demo_recaptcha = """
 
 tech_details_string = f"""
                     <summary>Technical details</summary>
-                    - GitHub: <a href="https://github.com/Byaidu/PDFMathTranslate">Byaidu/PDFMathTranslate</a><br>
+                    - Home: <a href="{APP_REPO_URL}">{APP_NAME}</a><br>
                     - BabelDOC: <a href="https://github.com/funstory-ai/BabelDOC">funstory-ai/BabelDOC</a><br>
-                    - GUI by: <a href="https://github.com/reycn">Rongxin</a><br>
+                    - GUI by: {APP_GUI_CREDITS}<br>
                     - pdf2zh Version: {__version__} <br>
                     - BabelDOC Version: {babeldoc_version}
                 """
@@ -524,7 +530,7 @@ cancellation_event_map = {}
 
 # The following code creates the GUI
 with gr.Blocks(
-    title="PDFMathTranslate - PDF Translation with preserved formats",
+    title=f"{APP_NAME} - PDF Translation with preserved formats",
     theme=gr.themes.Default(
         primary_hue=custom_blue, spacing_size="md", radius_size="lg"
     ),
@@ -532,7 +538,7 @@ with gr.Blocks(
     head=demo_recaptcha if flag_demo else "",
 ) as demo:
     gr.Markdown(
-        "# [PDFMathTranslate @ GitHub](https://github.com/Byaidu/PDFMathTranslate)"
+        f"# [{APP_NAME}]({APP_REPO_URL})"
     )
 
     with gr.Row():
@@ -802,7 +808,10 @@ def parse_user_passwd(file_path: str) -> tuple:
 
 
 def setup_gui(
-    share: bool = False, auth_file: list = ["", ""], server_port=7860
+    share: bool = False,
+    auth_file: T.Optional[list] = None,
+    server_port: int = 7860,
+    open_browser: bool = True,
 ) -> None:
     """
     Setup the GUI with the given parameters.
@@ -814,16 +823,16 @@ def setup_gui(
     Outputs:
         - None
     """
-    user_list, html = parse_user_passwd(auth_file)
+    user_list, html = parse_user_passwd(auth_file or ["", ""])
     if flag_demo:
-        demo.launch(server_name="0.0.0.0", max_file_size="5mb", inbrowser=True)
+        demo.launch(server_name="0.0.0.0", max_file_size="5mb", inbrowser=open_browser)
     else:
         if len(user_list) == 0:
             try:
                 demo.launch(
                     server_name="0.0.0.0",
                     debug=True,
-                    inbrowser=True,
+                    inbrowser=open_browser,
                     share=share,
                     server_port=server_port,
                 )
@@ -835,7 +844,7 @@ def setup_gui(
                     demo.launch(
                         server_name="127.0.0.1",
                         debug=True,
-                        inbrowser=True,
+                        inbrowser=open_browser,
                         share=share,
                         server_port=server_port,
                     )
@@ -844,14 +853,14 @@ def setup_gui(
                         "Error launching GUI using 127.0.0.1.\nThis may be caused by global mode of proxy software."
                     )
                     demo.launch(
-                        debug=True, inbrowser=True, share=True, server_port=server_port
+                        debug=True, inbrowser=open_browser, share=True, server_port=server_port
                     )
         else:
             try:
                 demo.launch(
                     server_name="0.0.0.0",
                     debug=True,
-                    inbrowser=True,
+                    inbrowser=open_browser,
                     share=share,
                     auth=user_list,
                     auth_message=html,
@@ -865,7 +874,7 @@ def setup_gui(
                     demo.launch(
                         server_name="127.0.0.1",
                         debug=True,
-                        inbrowser=True,
+                        inbrowser=open_browser,
                         share=share,
                         auth=user_list,
                         auth_message=html,
@@ -877,7 +886,7 @@ def setup_gui(
                     )
                     demo.launch(
                         debug=True,
-                        inbrowser=True,
+                        inbrowser=open_browser,
                         share=True,
                         auth=user_list,
                         auth_message=html,

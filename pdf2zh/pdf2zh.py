@@ -113,6 +113,11 @@ def create_parser() -> argparse.ArgumentParser:
         help="Interact with GUI.",
     )
     parse_params.add_argument(
+        "--no-browser",
+        action="store_true",
+        help="Do not auto-open browser when launching GUI.",
+    )
+    parse_params.add_argument(
         "--share",
         action="store_true",
         help="Enable Gradio Share",
@@ -276,10 +281,17 @@ def main(args: Optional[List[str]] = None) -> int:
 
         if parsed_args.serverport:
             setup_gui(
-                parsed_args.share, parsed_args.authorized, int(parsed_args.serverport)
+                parsed_args.share,
+                parsed_args.authorized,
+                int(parsed_args.serverport),
+                open_browser=not parsed_args.no_browser,
             )
         else:
-            setup_gui(parsed_args.share, parsed_args.authorized)
+            setup_gui(
+                parsed_args.share,
+                parsed_args.authorized,
+                open_browser=not parsed_args.no_browser,
+            )
         return 0
 
     if parsed_args.flask:

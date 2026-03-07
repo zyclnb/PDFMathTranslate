@@ -1,40 +1,43 @@
-# Interact with GUI
+# GUI Mode
 
-This subfolder provides the GUI mode of `pdf2zh`.
+This subfolder describes GUI mode for `pdf2zh`.
 
-## Usage
+## Start GUI
 
-1. Run `pdf2zh -i`
+```bash
+pdf2zh -i
+```
 
-2. Drop the PDF file into the window and click `Translate`.
+Default URL:
 
-### Environment Variables
+```text
+http://127.0.0.1:7860/
+```
 
-You can set the source and target languages using environment variables:
+## Disable browser auto-popup
 
-- `PDF2ZH_LANG_FROM`: Sets the source language. Defaults to "English".
-- `PDF2ZH_LANG_TO`: Sets the target language. Defaults to "Simplified Chinese".
+If you prefer launching service silently (no automatic browser opening):
 
-### Supported Languages
+```bash
+pdf2zh -i --no-browser
+```
 
-The following languages are supported:
+## Custom WebUI port
 
-- English
-- Simplified Chinese
-- Traditional Chinese
-- French
-- German
-- Japanese
-- Korean
-- Russian
-- Spanish
-- Italian
+```bash
+pdf2zh -i --serverport 7861
+```
 
-## Preview
+## Optional white-label branding
 
-<img src="./images/before.png" width="500"/>
-<img src="./images/after.png" width="500"/>
+Set env vars before launch:
 
-## Maintainance
+- `PDF2ZH_APP_NAME`
+- `PDF2ZH_APP_REPO_URL`
+- `PDF2ZH_APP_GUI_CREDITS`
 
-GUI maintained by [Rongxin](https://github.com/reycn)
+Example:
+
+```bash
+PDF2ZH_APP_NAME="My PDF Studio" pdf2zh -i --no-browser
+```
