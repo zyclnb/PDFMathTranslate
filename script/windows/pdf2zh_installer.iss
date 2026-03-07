@@ -1,4 +1,4 @@
-#define MyAppName "zyclnb PDF Translate"
+#define MyAppName "PDFMathTranslate"
 #ifndef MyAppVersion
   #define MyAppVersion "0.0.0"
 #endif
@@ -6,10 +6,10 @@
   #define MyAppVersionInfo "0.0.0.0"
 #endif
 #ifndef MyAppPublisher
-  #define MyAppPublisher "zyclnb"
+  #define MyAppPublisher "PDFMathTranslate Fork Maintainers"
 #endif
 #ifndef MyAppURL
-  #define MyAppURL "https://github.com/zyclnb/PDFMathTranslate"
+  #define MyAppURL "https://github.com/Byaidu/PDFMathTranslate"
 #endif
 #ifndef MySourceDir
   #error MySourceDir is required (directory containing pdf2zh.exe and runtime files)
@@ -30,7 +30,7 @@ DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir={#MyOutputDir}
-OutputBaseFilename=zyclnb-PDFTranslate-Setup-win11-x64
+OutputBaseFilename=PDFMathTranslate-Setup-win11-x64
 Compression=lzma2
 SolidCompression=yes
 ArchitecturesAllowed=x64compatible

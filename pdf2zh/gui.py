@@ -49,11 +49,11 @@ from babeldoc import __version__ as babeldoc_version
 
 logger = logging.getLogger(__name__)
 
-APP_NAME = str(ConfigManager.get("PDF2ZH_APP_NAME", "zyclnb PDF Translate"))
+APP_NAME = str(ConfigManager.get("PDF2ZH_APP_NAME", "PDFMathTranslate"))
 APP_REPO_URL = str(
-    ConfigManager.get("PDF2ZH_APP_REPO_URL", "https://github.com/zyclnb/PDFMathTranslate")
+    ConfigManager.get("PDF2ZH_APP_REPO_URL", "https://github.com/Byaidu/PDFMathTranslate")
 )
-APP_GUI_CREDITS = str(ConfigManager.get("PDF2ZH_APP_GUI_CREDITS", "zyclnb"))
+APP_GUI_CREDITS = str(ConfigManager.get("PDF2ZH_APP_GUI_CREDITS", "Maintainers"))
 
 BABELDOC_MODEL = OnnxModel.load_available()
 # The following variables associate strings with translators

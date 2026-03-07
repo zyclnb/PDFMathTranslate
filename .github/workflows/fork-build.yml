@@ -330,9 +330,9 @@ jobs:
     if: needs.check-repository.outputs.is_main_repo != 'true'
     runs-on: windows-latest
     env:
-      APP_SETUP_NAME: zyclnb-PDFTranslate-Setup-win11-x64.exe
-      APP_TITLE: zyclnb PDF Translate Setup
-      APP_PROMPT: Install zyclnb PDF Translate to a folder?
+      APP_SETUP_NAME: PDFMathTranslate-Setup-win11-x64.exe
+      APP_TITLE: PDFMathTranslate Setup
+      APP_PROMPT: Install PDFMathTranslate to a folder?
       APP_RUN_PROGRAM: pdf2zh.exe -i --no-browser
     steps:
       - name: 检出代码

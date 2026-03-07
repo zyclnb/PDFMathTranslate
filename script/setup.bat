@@ -41,17 +41,14 @@ echo [5/5] Create one-click launcher...
     echo set HF_ENDPOINT=https://hf-mirror.com
     echo cd /d %%~dp0
     echo set PATH=%%CD%%\Scripts;%%PATH%%
-    echo set PDF2ZH_APP_NAME=zyclnb PDF Translate
-    echo set PDF2ZH_APP_REPO_URL=https://github.com/zyclnb/PDFMathTranslate
-    echo set PDF2ZH_APP_GUI_CREDITS=zyclnb
-    echo echo Starting zyclnb PDF Translate locally on http://127.0.0.1:%APP_PORT%/
+    echo echo Starting PDFMathTranslate locally on http://127.0.0.1:%APP_PORT%/
     echo echo Browser auto-open has been disabled.
     echo pdf2zh -i --no-browser --serverport %APP_PORT%
 ) > start_pdf2zh.bat
 
 echo.
 echo Setup complete.
-echo Run "%CD%\start_pdf2zh.bat" to launch zyclnb PDF Translate.
+echo Run "%CD%\start_pdf2zh.bat" to launch PDFMathTranslate.
 echo.
 
 pause

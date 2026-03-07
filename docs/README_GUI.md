@@ -35,9 +35,9 @@ pdf2zh -i --serverport 7861
 Example:
 
 ```bash
-PDF2ZH_APP_NAME="zyclnb PDF Translate" \
-PDF2ZH_APP_REPO_URL="https://github.com/zyclnb/PDFMathTranslate" \
-PDF2ZH_APP_GUI_CREDITS="zyclnb" \
+PDF2ZH_APP_NAME="PDFMathTranslate" \
+PDF2ZH_APP_REPO_URL="https://github.com/Byaidu/PDFMathTranslate" \
+PDF2ZH_APP_GUI_CREDITS="Maintainers" \
 pdf2zh -i --no-browser
 ```
 
