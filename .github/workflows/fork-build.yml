@@ -326,7 +326,7 @@ jobs:
     name: Build Win11 installer (Setup.exe)
     needs:
       - check-repository
-      - test-win64-exe
+      - build-win64-exe
     if: needs.check-repository.outputs.is_main_repo != 'true'
     runs-on: windows-latest
     steps:
