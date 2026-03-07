@@ -1,62 +1,69 @@
-# zyclnb PDF Translate（维护增强版）
+# zyclnb PDF Translate（全流程维护增强版）
 
-> 这是 `zyclnb/PDFMathTranslate` 的主页面。目标是在不改变核心翻译能力的前提下，提供更稳定、更易分发、更易部署的使用体验。
+> 在不改变核心翻译功能的前提下，本仓库专注于 **品牌化、分发、安装、运行、更新** 的全流程优化。
 
-## 核心能力（保持与上游一致）
+## 1. 项目定位
 
-- 学术 PDF 翻译并尽量保留原始排版结构；
-- 保留公式、图表、目录、注释等元素；
-- 支持 CLI / Web UI / Docker / Windows 发行方式；
-- 支持多语言和多种翻译服务。
+- 上游来源：<https://github.com/Byaidu/PDFMathTranslate>
+- 本仓库目标：提高可用性、稳定性和交付效率（尤其是 Windows 安装分发）。
+- 功能边界：核心 PDF 翻译能力与上游保持兼容，不做破坏性改造。
 
-## 这个仓库的增强点
+## 2. 你现在得到的整合优化
 
-- ✅ 面向个人维护和长期可用性优化；
-- ✅ 支持 GUI 白标配置（默认改为 fork 品牌）；
-- ✅ 支持 `--no-browser`（启动 Web UI 不自动弹浏览器）；
-- ✅ 提供 Win11 安装包流水线与一键运行脚本。
+- ✅ **Fork 默认品牌化**：GUI 默认显示 `zyclnb PDF Translate`。
+- ✅ **无打扰启动**：`--no-browser` 全链路接入（CLI / 安装脚本 / 安装包启动项）。
+- ✅ **一键本地运行时**：`script/setup.bat` 自动准备嵌入式 Python + 启动器。
+- ✅ **Win11 安装包流水线**：CI 自动产出 `zyclnb-PDFTranslate-Setup-win11-x64.exe`。
+- ✅ **文档统一**：README 与 GUI 文档对齐 fork 使用方式。
 
-## 快速开始
+## 3. 核心功能（保持不变）
 
-### 1) Python 安装
+- 学术 PDF 翻译并尽量保留原排版；
+- 支持公式、图表、目录、注释；
+- 支持 CLI / Web UI / Docker / Windows；
+- 支持多语言和多翻译服务。
+
+## 4. 快速开始
+
+### 4.1 Python
 
 ```bash
 pip install pdf2zh
 pdf2zh document.pdf
 ```
 
-### 2) 启动 Web UI
+### 4.2 Web UI
 
 ```bash
 pdf2zh -i
 # 默认 http://127.0.0.1:7860/
 ```
 
-不自动弹浏览器：
+无浏览器自动弹窗：
 
 ```bash
 pdf2zh -i --no-browser
 ```
 
-### 3) Docker
+### 4.3 Docker
 
 ```bash
 docker pull byaidu/pdf2zh
 docker run -d -p 7860:7860 byaidu/pdf2zh
 ```
 
-### 4) Windows 一键运行（本仓库）
+### 4.4 Windows 一键运行（本仓库）
 
 ```bat
 script\setup.bat
 pdf2zh_dist\start_pdf2zh.bat
 ```
 
-该方式会安装当前仓库代码并默认使用白标参数。
+> `start_pdf2zh.bat` 会默认注入 fork 品牌变量，并使用 `--no-browser`。
 
-## GUI 白标参数
+## 5. GUI 白标参数
 
-可通过环境变量覆盖界面品牌（不影响翻译功能）：
+可覆盖默认品牌（不影响翻译能力）：
 
 - `PDF2ZH_APP_NAME`
 - `PDF2ZH_APP_REPO_URL`
@@ -71,24 +78,25 @@ export PDF2ZH_APP_GUI_CREDITS="zyclnb"
 pdf2zh -i --no-browser
 ```
 
-## Windows 安装包（CI）
+## 6. CI 构建与分发（Win11 安装包）
 
 - Workflow: `.github/workflows/fork-build.yml`
 - Artifact: `win11-installer`
-- 输出文件名：`zyclnb-PDFTranslate-Setup-win11-x64.exe`
+- 产物文件：`zyclnb-PDFTranslate-Setup-win11-x64.exe`
+- 默认安装后启动参数：`pdf2zh.exe -i --no-browser`
 
-## 文档入口
+## 7. 文档导航
 
 - GUI 文档：[`docs/README_GUI.md`](./docs/README_GUI.md)
-- 高级选项：[`docs/ADVANCED.md`](./docs/ADVANCED.md)
-- API：[`docs/APIS.md`](./docs/APIS.md)
+- 高级参数：[`docs/ADVANCED.md`](./docs/ADVANCED.md)
+- API 文档：[`docs/APIS.md`](./docs/APIS.md)
 
-## 与上游关系
+## 8. 与上游关系
 
-- 上游仓库：<https://github.com/Byaidu/PDFMathTranslate>
-- 本仓库会持续同步上游有价值更新，并保留必要兼容修复。
+- 本仓库不会自动影响上游；
+- 仅当你主动向上游提交 PR 并被合并时，才会进入上游。
 
-## 许可与致谢
+## 9. 许可证与致谢
 
 - License: [AGPL-3.0](./LICENSE)
 - 致谢上游与所有贡献者：<https://github.com/Byaidu/PDFMathTranslate>

@@ -329,6 +329,11 @@ jobs:
       - build-win64-exe
     if: needs.check-repository.outputs.is_main_repo != 'true'
     runs-on: windows-latest
+    env:
+      APP_SETUP_NAME: zyclnb-PDFTranslate-Setup-win11-x64.exe
+      APP_TITLE: zyclnb PDF Translate Setup
+      APP_PROMPT: Install zyclnb PDF Translate to a folder?
+      APP_RUN_PROGRAM: pdf2zh.exe -i --no-browser
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -350,15 +355,15 @@ jobs:
           $archivePath = "./pdf2zh-portable.7z"
           $configPath = "./sfx-config.txt"
           $sfxPath = "C:\Program Files\7-Zip\7z.sfx"
-          $outExe = "./zyclnb-PDFTranslate-Setup-win11-x64.exe"
+          $outExe = "./$env:APP_SETUP_NAME"
 
           & "C:\Program Files\7-Zip\7z.exe" a -t7z $archivePath "./build/*"
 
           $cfgLines = @(
             ';!@Install@!UTF-8!',
-            'Title="zyclnb PDF Translate Setup"',
-            'BeginPrompt="Install zyclnb PDF Translate to a folder?"',
-            'RunProgram="pdf2zh.exe -i --no-browser"',
+            ('Title="' + $env:APP_TITLE + '"'),
+            ('BeginPrompt="' + $env:APP_PROMPT + '"'),
+            ('RunProgram="' + $env:APP_RUN_PROGRAM + '"'),
             ';!@InstallEnd@!'
           )
           $cfgLines | Set-Content -Encoding UTF8 $configPath
@@ -376,5 +381,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: win11-installer
-          path: ./zyclnb-PDFTranslate-Setup-win11-x64.exe
+          path: ./${{ env.APP_SETUP_NAME }}
           if-no-files-found: error

@@ -1,5 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
+cd /d %~dp0
 
 set PYTHON_URL=https://www.python.org/ftp/python/3.12.7/python-3.12.7-embed-amd64.zip
 set PIP_URL=https://bootstrap.pypa.io/get-pip.py
@@ -8,10 +9,12 @@ set PIP_MIRROR=https://mirrors.aliyun.com/pypi/simple
 set APP_DIR=pdf2zh_dist
 set APP_PORT=7860
 
+if not exist %APP_DIR% mkdir %APP_DIR%
+
 if not exist %APP_DIR%\python.exe (
-    echo [1/4] Download embedded Python...
-    powershell -Command "& {Invoke-WebRequest -Uri !PYTHON_URL! -OutFile python.zip}"
-    powershell -Command "& {Expand-Archive -Path python.zip -DestinationPath %APP_DIR% -Force}"
+    echo [1/5] Download embedded Python...
+    powershell -Command "& {Invoke-WebRequest -Uri !PYTHON_URL! -OutFile python.zip}" || goto :error
+    powershell -Command "& {Expand-Archive -Path python.zip -DestinationPath %APP_DIR% -Force}" || goto :error
     del python.zip
     echo import site >> %APP_DIR%\python312._pth
 )
@@ -19,18 +22,20 @@ if not exist %APP_DIR%\python.exe (
 cd %APP_DIR%
 
 if not exist Scripts\pip.exe (
-    echo [2/4] Install pip...
-    powershell -Command "& {Invoke-WebRequest -Uri !PIP_URL! -OutFile get-pip.py}"
-    python get-pip.py
+    echo [2/5] Install pip...
+    powershell -Command "& {Invoke-WebRequest -Uri !PIP_URL! -OutFile get-pip.py}" || goto :error
+    python get-pip.py || goto :error
 )
 
 set PATH=%CD%\Scripts;%PATH%
 
-echo [3/4] Install/upgrade runtime dependencies...
-pip install --no-warn-script-location --upgrade setuptools -i !PIP_MIRROR!
-pip install --no-warn-script-location --upgrade .. -i !PIP_MIRROR!
+echo [3/5] Upgrade installer toolchain...
+pip install --no-warn-script-location --upgrade pip setuptools -i !PIP_MIRROR! || goto :error
 
-echo [4/4] Create one-click launcher...
+echo [4/5] Install fork runtime from local repository source...
+pip install --no-warn-script-location --upgrade .. -i !PIP_MIRROR! || goto :error
+
+echo [5/5] Create one-click launcher...
 (
     echo @echo off
     echo set HF_ENDPOINT=https://hf-mirror.com
@@ -46,7 +51,14 @@ echo [4/4] Create one-click launcher...
 
 echo.
 echo Setup complete.
-echo Run "%CD%\start_pdf2zh.bat" to launch the full local app without browser popup.
+echo Run "%CD%\start_pdf2zh.bat" to launch zyclnb PDF Translate.
 echo.
 
 pause
+exit /b 0
+
+:error
+echo.
+echo [ERROR] Setup failed. Please check network/proxy/python permissions and retry.
+pause
+exit /b 1
