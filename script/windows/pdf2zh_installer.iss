@@ -29,7 +29,6 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=LICENSE
 OutputDir={#MyOutputDir}
 OutputBaseFilename=PDFMathTranslate-Setup-win11-x64
 Compression=lzma2
