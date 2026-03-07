@@ -339,29 +339,38 @@ jobs:
           name: win64-exe
           path: ./build
 
-      - name: Install Inno Setup
+      - name: Install 7-Zip
         shell: pwsh
         run: |
-          choco install innosetup -y --no-progress
+          choco install 7zip -y --no-progress
 
-      - name: Compile installer
+      - name: Build self-extracting installer
         shell: pwsh
         run: |
-          $appVersion = "0.0.${{ github.run_number }}"
-          $appVersionInfo = "0.0.${{ github.run_number }}.0"
-          $repoUrl = "https://github.com/${{ github.repository }}"
-          $sourceDir = (Resolve-Path "./build").Path
-          $outputDir = (Resolve-Path ".").Path
+          $archivePath = "./pdf2zh-portable.7z"
+          $configPath = "./sfx-config.txt"
+          $sfxPath = "C:\Program Files\7-Zip\7z.sfx"
+          $outExe = "./PDFMathTranslate-Setup-win11-x64.exe"
 
-          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
-          & $iscc `
-            "/DMyAppVersion=$appVersion" `
-            "/DMyAppVersionInfo=$appVersionInfo" `
-            "/DMyAppPublisher=${{ github.repository_owner }}" `
-            "/DMyAppURL=$repoUrl" `
-            "/DMySourceDir=$sourceDir" `
-            "/DMyOutputDir=$outputDir" `
-            "script/windows/pdf2zh_installer.iss"
+          & "C:\Program Files\7-Zip\7z.exe" a -t7z $archivePath "./build/*"
+
+          $cfgLines = @(
+            ';!@Install@!UTF-8!',
+            'Title="PDFMathTranslate Setup"',
+            'BeginPrompt="Install PDFMathTranslate to a folder?"',
+            'RunProgram="pdf2zh.exe -i"',
+            ';!@InstallEnd@!'
+          )
+          $cfgLines | Set-Content -Encoding UTF8 $configPath
+
+          $sfxBytes = [System.IO.File]::ReadAllBytes($sfxPath)
+          $cfgBytes = [System.IO.File]::ReadAllBytes($configPath)
+          $arcBytes = [System.IO.File]::ReadAllBytes($archivePath)
+          $allBytes = New-Object byte[] ($sfxBytes.Length + $cfgBytes.Length + $arcBytes.Length)
+          [Array]::Copy($sfxBytes, 0, $allBytes, 0, $sfxBytes.Length)
+          [Array]::Copy($cfgBytes, 0, $allBytes, $sfxBytes.Length, $cfgBytes.Length)
+          [Array]::Copy($arcBytes, 0, $allBytes, $sfxBytes.Length + $cfgBytes.Length, $arcBytes.Length)
+          [System.IO.File]::WriteAllBytes($outExe, $allBytes)
 
       - name: Upload Win11 installer artifact
         uses: actions/upload-artifact@v4
