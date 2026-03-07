@@ -1,38 +1,30 @@
-# GUI Mode (Fork Edition)
+# GUI Mode
 
-This document describes Web UI startup and white-label options for this fork.
-
-## Start GUI
+## 启动
 
 ```bash
 pdf2zh -i
 ```
 
-Default URL:
+默认地址：`http://127.0.0.1:7860/`
 
-```text
-http://127.0.0.1:7860/
-```
-
-## Start without browser popup
+## 不自动打开浏览器
 
 ```bash
 pdf2zh -i --no-browser
 ```
 
-## Custom port
+## 自定义端口
 
 ```bash
 pdf2zh -i --serverport 7861
 ```
 
-## White-label environment variables
+## 可选 GUI 环境变量
 
 - `PDF2ZH_APP_NAME`
 - `PDF2ZH_APP_REPO_URL`
 - `PDF2ZH_APP_GUI_CREDITS`
-
-Example:
 
 ```bash
 PDF2ZH_APP_NAME="PDFMathTranslate" \
@@ -41,13 +33,9 @@ PDF2ZH_APP_GUI_CREDITS="Maintainers" \
 pdf2zh -i --no-browser
 ```
 
-## Recommended Windows startup
-
-Run one-click setup then launcher:
+## Windows 一键启动
 
 ```bat
 script\setup.bat
 pdf2zh_dist\start_pdf2zh.bat
 ```
-
-The generated launcher already sets branding vars and disables browser auto-popup.

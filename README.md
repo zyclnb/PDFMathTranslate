@@ -1,13 +1,6 @@
-# PDFMathTranslate（打包与分发增强版）
+# PDFMathTranslate（Packaging-first Fork）
 
-> 本仓库目标：在不改变核心翻译能力的前提下，增强 Windows 安装包、启动流程和部署可用性。
-
-## 核心功能（保持不变）
-
-- 学术 PDF 翻译并尽量保留原始排版；
-- 支持公式、图表、目录、注释；
-- 支持 CLI / Web UI / Docker / Windows；
-- 支持多语言和多翻译服务。
+本仓库仅做分发与安装流程增强，核心翻译功能与上游保持兼容。
 
 ## 快速开始
 
@@ -44,20 +37,34 @@ script\setup.bat
 pdf2zh_dist\start_pdf2zh.bat
 ```
 
-## 安装包与 CI
+## 打包与安装（Windows）
 
-- Workflow: `.github/workflows/fork-build.yml`
-- Artifact: `win11-installer`
-- 产物文件：`PDFMathTranslate-Setup-win11-x64.exe`
-- 安装包默认启动参数：`pdf2zh.exe -i --no-browser`
+- Workflow：`.github/workflows/fork-build.yml`
+- Artifact：`win11-installer`
+- 产物：`PDFMathTranslate-Setup-win11-x64.exe`
+- 安装后默认启动参数：`pdf2zh.exe -i --no-browser`
+
+## GUI 默认配置（可选）
+
+- `PDF2ZH_APP_NAME`
+- `PDF2ZH_APP_REPO_URL`
+- `PDF2ZH_APP_GUI_CREDITS`
+
+示例：
+
+```bash
+PDF2ZH_APP_NAME="PDFMathTranslate" \
+PDF2ZH_APP_REPO_URL="https://github.com/Byaidu/PDFMathTranslate" \
+PDF2ZH_APP_GUI_CREDITS="Maintainers" \
+pdf2zh -i --no-browser
+```
 
 ## 文档
 
-- GUI 文档：[`docs/README_GUI.md`](./docs/README_GUI.md)
+- GUI：[`docs/README_GUI.md`](./docs/README_GUI.md)
 - 高级参数：[`docs/ADVANCED.md`](./docs/ADVANCED.md)
-- API 文档：[`docs/APIS.md`](./docs/APIS.md)
+- API：[`docs/APIS.md`](./docs/APIS.md)
 
-## 许可证与致谢
+## 许可
 
 - License: [AGPL-3.0](./LICENSE)
-- 上游项目：<https://github.com/Byaidu/PDFMathTranslate>
